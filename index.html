@@ -21,6 +21,7 @@ button,input,select{font:inherit}.mono{font-family:'Space Grotesk',sans-serif;le
 .nav{display:grid;gap:8px}.nav button{width:100%;border:1px solid transparent;background:transparent;color:var(--muted);padding:12px 13px;border-radius:12px;text-align:left;display:flex;justify-content:space-between;align-items:center;cursor:pointer}.nav button:hover,.nav button.active{background:rgba(87,214,255,.07);border-color:rgba(87,214,255,.13);color:var(--text)}.nav button.active::before{content:'';width:3px;height:18px;border-radius:4px;background:var(--cyan);position:absolute;left:16px}.nav .label{display:flex;gap:10px;align-items:center}.nav .count{font-size:11px;background:rgba(255,255,255,.06);padding:3px 7px;border-radius:999px}
 .side-note{margin-top:auto;padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.025)}.side-note .small{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.side-note strong{display:block;margin-top:5px;font-size:16px}.side-note span{color:var(--cyan)}
 .main{min-width:0}.topbar{position:sticky;top:0;z-index:15;padding:18px 28px;border-bottom:1px solid var(--line);background:rgba(7,17,31,.82);backdrop-filter:blur(18px);display:flex;gap:14px;align-items:center}.search{flex:1;position:relative}.search input{width:100%;height:48px;border:1px solid var(--line);outline:none;background:rgba(255,255,255,.035);color:var(--text);border-radius:14px;padding:0 48px 0 46px}.search input:focus{border-color:rgba(87,214,255,.45);box-shadow:0 0 0 4px rgba(87,214,255,.07)}.search svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);opacity:.58}.kbd{position:absolute;right:10px;top:10px;font-size:10px;color:var(--muted);border:1px solid var(--line);border-radius:7px;padding:4px 7px}.top-actions{display:flex;gap:8px}.icon-btn{width:44px;height:44px;border:1px solid var(--line);background:rgba(255,255,255,.035);color:var(--text);border-radius:12px;cursor:pointer}.icon-btn:hover{border-color:rgba(87,214,255,.35);color:var(--cyan)}
+.mobile-brand{display:none;flex:0 0 auto;align-items:center}.mobile-brand img{display:block;width:auto;height:42px;max-width:190px;object-fit:contain}
 .content{max-width:1500px;margin:0 auto;padding:30px}.eyebrow{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;color:var(--muted);font-size:11px;text-transform:uppercase;letter-spacing:.16em}.live{display:inline-flex;align-items:center;gap:7px}.live i{width:7px;height:7px;background:var(--lime);border-radius:50%;box-shadow:0 0 12px rgba(185,245,109,.8);animation:pulse 1.8s infinite}.title-row{display:flex;justify-content:space-between;gap:24px;align-items:flex-end}.title-row h2{font:700 clamp(30px,4vw,54px)/.98 'Space Grotesk';max-width:760px;margin:0}.title-row h2 span{color:var(--cyan)}.title-row p{max-width:640px;color:var(--muted);margin:9px 0 0;font-size:14px}.draw-main{margin-top:28px;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:20px}
 .hero{position:relative;min-height:0;border:1px solid var(--line);border-radius:28px;padding:16px;overflow:hidden;background:radial-gradient(circle at 75% 22%,rgba(87,214,255,.12),transparent 25%),linear-gradient(145deg,#10283f,#0c192a 60%,#09131f);box-shadow:var(--shadow)}.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(transparent 96%,rgba(87,214,255,.05) 97%),linear-gradient(90deg,transparent 96%,rgba(87,214,255,.04) 97%);background-size:100% 34px,34px 100%;pointer-events:none;opacity:.55}.hero-head{display:flex;justify-content:space-between;align-items:flex-start;position:relative;z-index:2}.pill{border:1px solid var(--line);background:rgba(255,255,255,.04);border-radius:999px;padding:7px 10px;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}.verified{color:var(--lime);border-color:rgba(185,245,109,.22);background:rgba(185,245,109,.05)}.orbital{position:absolute;right:-60px;top:-70px;width:210px;height:210px;border:1px solid rgba(87,214,255,.14);border-radius:50%;z-index:1}.orbital::before,.orbital::after{content:'';position:absolute;inset:28px;border:1px dashed rgba(87,214,255,.12);border-radius:50%}.orbital::after{inset:86px;border-color:rgba(255,179,93,.16)}.sweep{position:absolute;width:50%;height:1px;background:linear-gradient(90deg,transparent,var(--cyan));top:50%;left:50%;transform-origin:left center;animation:spin 7s linear infinite;opacity:.55}
 .company-stage{position:relative;z-index:3;margin-top:10px}.cat{display:inline-flex;gap:8px;align-items:center;text-transform:uppercase;letter-spacing:.13em;font-size:10px;color:var(--orange)}.cat::before{content:'';width:8px;height:8px;border-radius:50%;background:currentColor;box-shadow:0 0 14px currentColor}.company-name{font:700 clamp(28px,3.6vw,46px)/.95 'Space Grotesk';letter-spacing:-.05em;max-width:900px;margin:9px 0;color:#fff;word-break:break-word}.company-meta{display:flex;flex-wrap:wrap;gap:8px}.tag{padding:7px 10px;border-radius:999px;background:rgba(87,214,255,.07);border:1px solid rgba(87,214,255,.15);color:#ccefff;font-size:11px}.hero-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.btn{border:1px solid var(--line);border-radius:12px;padding:12px 15px;cursor:pointer;background:rgba(255,255,255,.045);color:var(--text);text-decoration:none;font-weight:700;font-size:12px}.btn.primary{background:var(--cyan);color:#07111f;border-color:var(--cyan);box-shadow:0 10px 30px rgba(87,214,255,.16)}.btn.primary:hover{transform:translateY(-1px);box-shadow:0 14px 35px rgba(87,214,255,.22)}.btn:hover{border-color:rgba(255,255,255,.2)}.linkedin-btn{font:inherit}.btn.saved{color:var(--lime);border-color:rgba(185,245,109,.3)}
@@ -229,6 +230,19 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 }
 </style>
 
+<style id="mobile-logo-fix">
+@media(max-width:760px){
+  .mobile-brand{display:flex;min-width:0;}
+  .mobile-brand img{height:38px;max-width:170px;width:auto;}
+  .topbar{gap:10px;padding:10px 12px;}
+  .topbar .search{min-width:0;}
+  .search input{height:46px;padding-left:42px;padding-right:12px;}
+}
+@media(max-width:460px){
+  .mobile-brand img{height:34px;max-width:145px;}
+  .topbar{gap:8px;}
+}
+</style>
 <style id="desktop-no-gap-fix">
 /* Desktop: keep the right sidebar out of normal flow so it cannot stretch
    the draw section and push the filter tabs down, while preserving its layout. */
@@ -290,6 +304,9 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 </aside>
 <main class="main">
 <header class="topbar">
+  <div class="mobile-brand" aria-label="TargetDesk">
+    <img src="targetdesk_logo_crop.png" alt="TargetDesk logo">
+  </div>
   <div class="search"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg><input id="topSearch" placeholder="Search company, HR contact, title or email…"><span class="kbd">/</span></div>
   <div class="top-actions"><button class="icon-btn" id="randomTop" title="Draw" aria-label="Draw a random company">⤨</button><button class="icon-btn" id="commandTop" title="Command menu" aria-label="Open command menu">⌘</button></div>
 </header>
