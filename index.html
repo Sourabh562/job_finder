@@ -205,6 +205,28 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .orbital::before{border-color:var(--accent-soft)!important;transition:border-color .4s ease;}
 .sweep{background:linear-gradient(90deg,transparent,var(--accent))!important;transition:background .4s ease;}
 .tele-count,.count{transition:color .2s ease;}
+
+/* ===== interactive cursor layer ===== */
+@media (pointer:fine){
+  body.cursor-enhanced{cursor:none;}
+  body.cursor-enhanced a,
+  body.cursor-enhanced button,
+  body.cursor-enhanced input,
+  body.cursor-enhanced select,
+  body.cursor-enhanced textarea{cursor:none;}
+  .cursor-dot,.cursor-ring,.cursor-glow,.cursor-trail{position:fixed;left:0;top:0;pointer-events:none;z-index:9999;opacity:0;will-change:transform,opacity;}
+  .cursor-dot{width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px var(--accent),0 0 28px var(--accent-soft);transition:transform .16s ease,opacity .2s ease;}
+  .cursor-ring{width:34px;height:34px;margin:-17px 0 0 -17px;border:1px solid rgba(87,214,255,.62);border-radius:50%;background:rgba(87,214,255,.025);box-shadow:0 0 22px rgba(87,214,255,.13);transition:width .22s ease,height .22s ease,margin .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease,opacity .2s ease;}
+  .cursor-glow{width:120px;height:120px;margin:-60px 0 0 -60px;border-radius:50%;background:radial-gradient(circle,rgba(87,214,255,.13),rgba(87,214,255,0) 68%);filter:blur(3px);mix-blend-mode:screen;transition:opacity .25s ease;}
+  .cursor-trail{width:9px;height:9px;margin:-4.5px 0 0 -4.5px;border-radius:50%;background:var(--accent);opacity:0;mix-blend-mode:screen;}
+  .cursor-ring.is-hover{width:48px;height:48px;margin:-24px 0 0 -24px;border-color:var(--lime);background:rgba(185,245,109,.06);box-shadow:0 0 28px rgba(185,245,109,.18);}
+  .cursor-ring.is-down{width:24px;height:24px;margin:-12px 0 0 -12px;border-color:var(--orange);background:rgba(255,179,93,.08);}
+  .cursor-dot.is-down{transform:scale(.68);background:var(--orange);box-shadow:0 0 10px var(--orange),0 0 24px rgba(255,179,93,.35);}
+}
+@media (pointer:coarse){.cursor-dot,.cursor-ring,.cursor-glow,.cursor-trail{display:none!important;}}
+@media (prefers-reduced-motion:reduce){
+  .cursor-dot,.cursor-ring,.cursor-glow,.cursor-trail{display:none!important;}
+}
 </style>
 
 <style id="desktop-no-gap-fix">
@@ -248,6 +270,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 </style>
 </head>
 <body>
+
+<div class="cursor-glow" aria-hidden="true"></div>
+<div class="cursor-ring" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
+<div class="cursor-trail" aria-hidden="true"></div>
 <div class="ambient-bg"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
 <div class="grain"></div>
 <div class="scan-overlay" id="scanOverlay"><div class="scan-box"><div class="scan-radar"><div class="scan-sweep"></div></div><div class="scan-label" id="scanLabel">SEARCHING COMPANY INDEX</div><div class="scan-step" id="scanStep">Preparing discovery engine…</div><div class="scan-dots">•••</div></div></div>
@@ -410,6 +437,41 @@ $('#cmdInput').addEventListener('keydown',e=>{
 });
 document.addEventListener('keydown',e=>{if(e.key==='/'&&!['INPUT','TEXTAREA'].includes(document.activeElement.tagName)){e.preventDefault();$('#topSearch').focus()}if(e.key==='Escape')$('#modal').classList.remove('show')});
 
+
+
+
+/* ---- interactive cursor ---- */
+(function initCursor(){
+  if (window.matchMedia('(pointer:fine)').matches === false || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const body=document.body;
+  body.classList.add('cursor-enhanced');
+  const dot=document.querySelector('.cursor-dot');
+  const ring=document.querySelector('.cursor-ring');
+  const glow=document.querySelector('.cursor-glow');
+  const trail=document.querySelector('.cursor-trail');
+  if(!dot||!ring||!glow||!trail)return;
+  let x=innerWidth/2,y=innerHeight/2,rx=x,ry=y,gx=x,gy=y,tx=x,ty=y,visible=false,down=false;
+  const interactive='a,button,input,select,textarea,[role="button"],[data-cmd],[data-nav],.filter-tab,.rating-card,.metric,.history-item,.saved-item';
+  function show(){ if(!visible){visible=true; dot.style.opacity=1; ring.style.opacity=1; glow.style.opacity=1;} }
+  function move(el,x,y){el.style.transform=`translate3d(${x}px,${y}px,0)`;}
+  window.addEventListener('pointermove',e=>{
+    x=e.clientX;y=e.clientY;show();
+    const target=e.target.closest?.(interactive);
+    ring.classList.toggle('is-hover',!!target);
+  },{passive:true});
+  window.addEventListener('pointerdown',e=>{
+    down=true;dot.classList.add('is-down');ring.classList.add('is-down');
+    move(trail,e.clientX,e.clientY);trail.style.opacity=.4;setTimeout(()=>trail.style.opacity=0,180);
+  },{passive:true});
+  window.addEventListener('pointerup',()=>{down=false;dot.classList.remove('is-down');ring.classList.remove('is-down');},{passive:true});
+  window.addEventListener('pointerleave',()=>{dot.style.opacity=0;ring.style.opacity=0;glow.style.opacity=0;visible=false;});
+  function frame(){
+    rx+=(x-rx)*.23; ry+=(y-ry)*.23; gx+=(x-gx)*.09; gy+=(y-gy)*.09; tx+=(x-tx)*.045; ty+=(y-ty)*.045;
+    move(dot,x,y);move(ring,rx,ry);move(glow,gx,gy);move(trail,tx,ty);
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
 
 /* ---- entrance stagger + scroll reveal ---- */
 (function initPolish(){
